@@ -42,7 +42,7 @@ grade_f <- yrbss$Grade
 grade_num <- sort(unique(suppressWarnings(as.numeric(grade_f))))
 grade_num <- grade_num[!is.na(grade_num)]
 
-# Define order: numeric grades, then "other", then "missing"
+# Define order: numeric grades first, then "other", then "missing"
 grade_levels <- c(as.character(grade_num), "other", "missing")
 
 yrbss$Grade <- factor(grade_f, levels = grade_levels, ordered = TRUE)
@@ -133,6 +133,5 @@ ggplot(grade12,
   
   theme_minimal(base_size = 14) +
   theme(legend.position = "none")
-
 
 # Push your completed code to your GitHub repository
