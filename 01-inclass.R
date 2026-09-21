@@ -81,13 +81,13 @@ ggplot(activity_summary,
            color = Gender,
            group = Gender)) +
   
-  geom_line(linewidth = 1) +
-  geom_point(size = 3) +
+  geom_line() +
+  geom_point(size = 2) +
   
   labs(
-    title = "Average Number of Physically Active Days \n by Grade and Gender",
+    title = "Average Physically Active Days \nby Grade and Gender",
     x = "Grade",
-    y = "Mean Physically Active Days (7 Days)",
+    y = "Average, 7 Days",
     color = "Gender"
   ) +
   
@@ -103,6 +103,36 @@ ggplot(activity_summary,
 # among female students in grade 12 
 # Ensure that the figure is clearly labeled and includes an appropriate legend
 
+# Calculate BMI
+yrbss <- yrbss %>%
+  mutate(                 
+    bmi = round(weight / (height^2), 2)
+  )
+
+# Filter Grade 12 students
+grade12 <- yrbss %>%
+  filter(Gender == "Female", Grade == "12")
+
+# Make physicial activity factor level
+grade12$physically_active_7d <- factor(grade12$physically_active_7d)
+
+# Plot
+ggplot(grade12,
+       aes(x = physically_active_7d,
+           y = bmi)) +
+  
+  geom_boxplot(alpha = 0.7) +
+  
+  #geom_jitter(width = 0.15, alpha = 0.5, color = "grey") +
+  
+  labs(
+    title = "Physical Activity and BMI\n Among Females in Grade 12",
+    x = "Physically Active Days",
+    y = "BMI"
+  ) +
+  
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "none")
 
 
 # Push your completed code to your GitHub repository
