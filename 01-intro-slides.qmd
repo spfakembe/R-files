@@ -1,0 +1,205 @@
+---
+title: "Introduction: Git, GitHub, R, Positron"
+author: "CHL5233"
+format:
+  revealjs:
+    theme: night
+    slide-number: true
+    transition: slide
+    embed-resources: true
+---
+
+## Welcome
+
+-   Welcome to Statistical Programming and Computation for Health Data
+-   **Instructor**: Aya Mitani
+-   **Course TA**: Lin Yu
+-   Introductions
+    -   Name, program, favorite ice cream flavor
+
+## Software and websites
+
+-   R
+-   Positron
+-   Quarto
+-   Git
+-   GitHub and GitHub Classroom alternative 
+    -   Unfortunately, GitHub Classroom was discontinued on 2026-08-26
+    -   Need to create a GitHub account
+
+## Course format
+
+-   This course implements **active** learning
+
+    -   Most of the class time will be devoted to completing an in-class assignment after a brief introduction
+
+    -   You are encouraged to **collaborate** with your classmates while in class
+
+    - You are also free to use **external resources including AI** to complete the in-class assignments
+        - We will devote one week to learn about AI-assisted coding in Positron
+
+## Pre-class assignment
+-   Each week, there will be a pre-class assignment(s) and a short quiz (due Sundays 11:59pm)
+
+    -   You cannot consult your classmates on the quizzes
+
+-   You will develop an R package for the final **group** project
+
+    -   See syllabus for details
+    
+## This week
+
+-   Learn the **basics** of Git and GitHub as you code in R inside Positron
+-   Complete an in-class assignment
+-   The slides are available in Quercus as .qmd file and HTML output
+    - You can take notes directly on the .qmd file
+
+
+
+## Git
+
+-   What is Git?
+    -   A popular **version control** system
+-   What is version control?
+    -   A way of **tracking**, **managing**, and **safeguarding changes** to digital assets (code, data, etc.) over time
+    -   Essential for file **organization**, effective **collaboration**, and ensuring **reproducibility**
+    -   Version control software (Git) **automates** this process
+    
+## GitHub
+-   What is GitHub?
+    -   Website that hosts project development and version control using Git
+    -   "Facebook for programmers"
+    -   A project is saved in a **repository**
+-   What is a Repository?
+    -   The most basic element of GitHub
+    -   A place to store code, files, and each file's revision history
+    -   Can have multiple collaborators
+    
+## In-class assignment submission
+- At the end of class, you will create a new GitHub repository under your own account that includes
+    1. Completed .R script
+    2. README file
+
+
+## Step 1: Create a Project
+
+### Project Initialization
+- Open **Positron**.
+- Select **File > New Project...** from the top menu
+- Alternatively, use the Command Palette:
+  - `Ctrl+Shift+P` (Windows/Linux), `Cmd+Shift+P` (macOS)
+  - Search for **"New Project"**
+- Pick a local folder for your data science work
+- Save `01-inclass.R` in this folder
+---
+
+
+## Step 2: Introduce Yourself to Git
+
+### One-Time Global Setup
+If this is your first time using Git on this computer, open the **Terminal** tab in Positron and run these two commands:
+
+```bash
+# Set your display name
+git config --global user.name "Your Name"
+
+# Set your email (Use your GitHub email!)
+git config --global user.email "your.email@example.com"
+```
+
+To confirm
+```bash
+git config --global user.name
+git config --global user.email
+```
+
+
+## Step 4: Introduce Yourself to Git
+### Or use the `usethis` package in **R**
+
+```{r}
+#| eval: FALSE
+#| echo: TRUE
+
+install.packages("usethis")
+library(usethis) 
+
+usethis::use_git_config(user.name = "My Name", user.email = "myemail@email.com")
+
+# to confirm, generate a git situation-report, your user name and email 
+# should appear under Git config (global)
+usethis::git_sitrep()
+```
+
+---
+
+
+
+## Step 3: Initialize Git
+
+### Local Source Control
+- Click the **Source Control icon** in the left Activity Bar (the branching tree icon)
+- Click the **Initialize Repository** button
+- *What happens behind the scenes?* 
+  - Positron creates a hidden `.git` folder.
+  - The IDE is now tracking file modifications
+
+---
+
+## Step 4: Ignore Unwanted Files
+
+### Setting up `.gitignore`
+Create a file named `.gitignore` in your root directory to keep your repository clean. Add these patterns:
+
+```text
+# Python & R environments
+.venv/
+__pycache__/
+.Rproj.user/
+.Rhistory
+
+# Data files (Don't track large files!)
+*.csv
+*.xlsx
+*.parquet
+data/
+```
+
+---
+
+## Step 5: Your First Commit
+
+### Saving Progress Locally
+1. Create a `README.md` file describing your project
+2. Open the **Source Control panel**
+3. Stage your files by clicking the **+ (plus sign)** next to "Changes"
+4. Type an initial message:
+   - `Initial project setup`
+5. Click **Commit**
+
+---
+
+## Step 6: Publish to GitHub
+
+### Going to the Cloud
+- In the Source Control panel, click the blue **Publish Branch** button
+- If prompted, sign in to your GitHub account
+- Select either:
+  - **Publish to GitHub public repository**
+  - **Publish to GitHub private repository**
+- Positron creates the repository online and pushes your code automatically!
+
+---
+
+## Pro-Tip: The Daily Workflow
+
+### Keeping in Sync
+As you develop your scripts and Quarto files, follow this simple cycle:
+
+1. **Write code** (Scripts, Notebooks, Quarto docs)
+2. **Commit changes** locally with a descriptive message
+3. **Sync changes** to push your work safely up to GitHub
+
+## Assignment submission
+
+- Submit the URL of your **GitHub repository** on Quercus
