@@ -32,10 +32,26 @@ library(flextable)
 yrbss$Grade <- yrbss$grade
 yrbss$Gender <- yrbss$gender
 
+# Capitalize Gender labels
+ yrbss$Gender <- tools::toTitleCase(yrbss$Gender)
+
+# Build ordered Grade factor
+grade_f <- yrbss$Grade
+
+# Extract numeric grades
+grade_num <- sort(unique(suppressWarnings(as.numeric(grade_f))))
+grade_num <- grade_num[!is.na(grade_num)]
+
+# Define order: numeric grades, then "other", then "missing"
+grade_levels <- c(as.character(grade_num), "other", "missing")
+
+yrbss$Grade <- factor(grade_f, levels = grade_levels, ordered = TRUE)
+
 z <- summarizor(
   yrbss[c("Grade", "Gender")],
   overall_label = NULL
 )
+
 ft_1 <- as_flextable(z) 
 ft_1
 
@@ -50,10 +66,37 @@ ft_1
 # no one correct way to do this
 # Ensure that the figure is clearly labeled and includes an appropriate legend
 
-aggregate(xxx) |>
-  ggplot(aes(xxx)) + 
-  geom_line()
-...
+activity_summary <- aggregate(
+  physically_active_7d ~ Grade + Gender,
+  data = yrbss,
+  FUN = mean,
+  na.rm = TRUE
+)
+
+library(ggplot2)
+
+ggplot(activity_summary,
+       aes(x = Grade,
+           y = physically_active_7d,
+           color = Gender,
+           group = Gender)) +
+  
+  geom_line(linewidth = 1) +
+  geom_point(size = 3) +
+  
+  labs(
+    title = "Average Number of Physically Active Days \n by Grade and Gender",
+    x = "Grade",
+    y = "Mean Physically Active Days (7 Days)",
+    color = "Gender"
+  ) +
+  
+  theme_minimal(base_size = 14)
+
+#aggregate(xxx) |>
+ # ggplot(aes(xxx)) + 
+  #geom_line()
+#...
 
 
 # Create a plot that shows the relationship betwen physical activity and bmi
